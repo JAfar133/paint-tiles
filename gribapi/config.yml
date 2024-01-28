@@ -1,0 +1,7 @@
+tiles_path: ./public/tiles
+temp_dir: ./temp_dir
+log_dir: ./logs
+GFS_URL: https://nomads.ncep.noaa.gov/cgi-bin/filter_gfs_0p25.pl
+ECMWF_URL: https://data.ecmwf.int/forecasts
+MAX_FORECAST_STEP: 84
+text_file_to_save_info: ./public/input.txt
