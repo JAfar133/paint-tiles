@@ -65,7 +65,7 @@ os.makedirs(log_dir, exist_ok=True)
 logger = logging.getLogger("logger")
 logger.setLevel(logging.DEBUG)
 
-log_file = os.path.join(log_dir, f"watsen-utils-{datetime.now().strftime('%Y-%m-%d')}.log")
+log_file = os.path.join(log_dir, f"paint-gribapi-{datetime.now().strftime('%Y-%m-%d')}.log")
 file_handler = RotatingFileHandler(log_file, maxBytes=10 * 1024 * 1024, backupCount=15, encoding='utf-8')
 file_handler.setLevel(logging.WARNING)
 
@@ -88,7 +88,7 @@ logger.addHandler(console_handler)
 
 def create_new_log_file():
     today = time.strftime('%Y-%m-%d')
-    new_log_file = os.path.join(log_dir, f"watsen-utils-{today}.log")
+    new_log_file = os.path.join(log_dir, f"paint-gribapi-{today}.log")
 
     # Заменяем старый обработчик новым
     new_file_handler = RotatingFileHandler(new_log_file, maxBytes=10 * 1024 * 1024, backupCount=15,
