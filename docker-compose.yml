@@ -1,6 +1,7 @@
 version: '3'
 
 services:
+  
   gribapi:
     container_name: paint-gribapi
     build:
