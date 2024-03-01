@@ -29,7 +29,7 @@ RUN apt-get update && apt-get upgrade -y && \
     make install && \
     cd ../ && \
     apt-get update && apt-get upgrade -y && \
-    pip install eccodes requests numpy schedule pyyaml mysql-connector-python ecmwf-opendata && \
+    pip install eccodes requests numpy schedule pyyaml mysql-connector-python git+https://github.com/ecmwf/ecmwf-opendata.git && \
     apt-get install -y libgdal-dev gdal-bin && \
     pip install GDAL=="$(gdal-config --version).*" --global-option=build_ext --global-option="-I/usr/include/gdal"
 
