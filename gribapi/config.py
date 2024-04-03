@@ -23,6 +23,7 @@ parameter_mapping = {
     'RH': 'humidity',
     'APCP': 'total precipitation',
     'WIND': 'wind speed, wind degree',
+    'TCDC': 'cloud',
     '10u': 'wind speed, wind degree',
     '10v': 'wind speed, wind degree',
     ('10v', '10u'): 'wind speed, wind degree',
@@ -43,6 +44,16 @@ weather_condition_mapping = {
     'snow': '13d',
     'mist': '50d',
 }
+
+TEMP_MIN, TEMP_MAX = 200, 320
+PRES_MIN, PRES_MAX = 90000, 105000
+HUMIDITY_MAX = 100
+WIND_MAX = 40
+RAIN_MAX = 35
+FROZEN_PERCENT_THRESHOLD = 35
+CLOUD_MAX = 100
+
+
 try:
     with open('config.yml') as f:
         config = yaml.safe_load(f)
@@ -57,7 +68,7 @@ MAX_FORECAST_STEP = config['MAX_FORECAST_STEP']
 text_file_to_save_info = config['text_file_to_save_info']
 
 ecmwf_parameters = [('10v', '10u'), '2t', 'msl']
-gfs_parameters = ['APCP', 'RH']
+gfs_parameters = ['APCP', 'RH', 'TCDC']
 
 # start logger config
 log_dir = config['log_dir']

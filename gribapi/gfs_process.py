@@ -19,6 +19,12 @@ gfs_parameters = {
         'level_request': 'lev_surface=on',
         'var_request': 'var_APCP=on'
     },
+    'TCDC': {
+        'full name': 'cloud',
+        'level': 'entire atmosphere',
+        'level_request': 'lev_entire_atmosphere=on',
+        'var_request': 'var_TCDC=on'
+    },
     'RH': {
         'full_name': 'relative humidity',
         'level': '2m',
@@ -58,7 +64,7 @@ def create_gfs_request(step, parameter, date, time='00'):
 
 def create_gfs_requests(cycle, forecast_step, weather_date, date, parameters=None):
     if parameters is None:
-        parameters = ['APCP', 'TMP', 'WIND', 'RH', 'PRES']
+        parameters = ['APCP', 'TMP', 'WIND', 'RH', 'PRES', 'TCDC']
     requests = []
     for param in parameters:
         for i in range(0, MAX_FORECAST_STEP + 1, forecast_step):

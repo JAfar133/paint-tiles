@@ -23,24 +23,33 @@ def read_grib_data(file_path, parameter_number=None):
     return None
 
 
+def encode_data(data, max_value, min_value):
+    return np.clip((data - min_value) / (max_value - min_value), 0, 1)
+
+
 def encode_data_to_rgb(data, ni, nj, data_name, model):
     if data is None:
         return None
 
     if data_name == 'TMP':
-        red_channel = np.clip((data - 200) / (320 - 200), 0, 1) * 255
+        red_channel = encode_data(data, TEMP_MAX, TEMP_MIN) * 255
         green_channel = np.where(data < 273, random.randint(50, 60), random.randint(70, 80))
         blue_channel = np.clip(data / 273, 0, 1) * 255
 
-    elif data_name == 'RH' or data_name == 'LCDC':
-        red_channel = np.clip(data / 100, 0, 1) * 255
+    elif data_name == 'RH':
+        red_channel = encode_data(data, HUMIDITY_MAX, 0) * 255
         green_channel = np.clip(data / 6, 0, 1) * 255
         blue_channel = np.clip(data / 50, 0, 1) * 255
 
     elif data_name == 'PRES':
-        red_channel = np.clip((data - 90000) / (105000 - 90000), 0, 1) * 255
-        green_channel = np.clip(data / 90000, 0, 1) * 255
-        blue_channel = np.clip(data / 95000, 0, 1) * 255
+        red_channel = encode_data(data, PRES_MAX, PRES_MIN) * 255
+        green_channel = np.clip(data / PRES_MIN, 0, 1) * 255
+        blue_channel = np.clip(data / PRES_MIN, 0, 1) * 255
+
+    elif data_name == 'TCDC':
+        red_channel = encode_data(data, CLOUD_MAX, 0) * 255
+        green_channel = np.clip(data / 40, 0, 1) * 255
+        blue_channel = np.clip(data / 20, 0, 1) * 255
     else:
         return None
 
