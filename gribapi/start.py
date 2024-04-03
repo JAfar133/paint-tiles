@@ -209,10 +209,14 @@ def run(cycle, date):
 
 if __name__ == "__main__":
 
-    schedule.every().day.at("04:25").do(lambda: run(18, datetime.now() - timedelta(hours=10, minutes=25)))
-    schedule.every().day.at("10:25").do(lambda: run(0, datetime.now() - timedelta(hours=10, minutes=25)))
-    schedule.every().day.at("16:25").do(lambda: run(6, datetime.now() - timedelta(hours=10, minutes=25)))
-    schedule.every().day.at("22:25").do(lambda: run(12, datetime.now() - timedelta(hours=10, minutes=25)))
+    # ECMWF решили поставлять данные для 0 часов ночи и 12 часов дня на пол часа позже
+    time_delta_6_18 = timedelta(hours=10, minutes=25)
+    time_delta_0_12 = timedelta(hours=10, minutes=55)
+    # Данные для ecmwf становятся доступны примерно через 10 часов 20 минут после даты формирования прогноза
+    schedule.every().day.at("04:25").do(lambda: run(18, datetime.now() - time_delta_6_18))
+    schedule.every().day.at("10:55").do(lambda: run(0, datetime.now() - time_delta_0_12))
+    schedule.every().day.at("16:25").do(lambda: run(6, datetime.now() - time_delta_6_18))
+    schedule.every().day.at("22:55").do(lambda: run(12, datetime.now() - time_delta_0_12))
 
     # schedule.every().day.at("03:00").do(lambda: remove_old_tiles(f'{tiles_path}/gfs/', 1))
     schedule.every().day.at("03:05").do(lambda: remove_old_tiles(f'{tiles_path}/ecmwf/', 1))
